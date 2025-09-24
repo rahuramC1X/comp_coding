@@ -129,7 +129,7 @@ const BalloonBurstDP: React.FC = () => {
   const [currentScore, setCurrentScore] = useState(0);
   const currentScoreRef = useRef(0);
   const [progress, setProgress] = useState(0);
-  const [originalNums, setOriginalNums] = useState<number[]>([]);
+  const [_originalNums, setOriginalNums] = useState<number[]>([]);
   const [optimalData, setOptimalData] = useState<{ maxScore: number; order: number[] }>({ maxScore: 0, order: [] });
   const [hintIdx, setHintIdx] = useState<number | null>(null);
 
