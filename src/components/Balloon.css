@@ -1,0 +1,200 @@
+/* ---------- Container ---------- */
+.game-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background: radial-gradient(circle at 20% 10%, #f6fbff 0%, #dbefff 30%, #b8d8ff 60%, #9cc3ff 100%);
+}
+
+/* ---------- Scene ---------- */
+.scene {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  height: 220px; /* space for balloons tied to ground */
+}
+
+/* ---------- Balloon Row ---------- */
+.balloon-row {
+  display: flex;
+  gap: 20px;
+  align-items: flex-end; /* balloons touch ground */
+  height: 100%;
+  position: relative;
+}
+
+/* ---------- Balloon ---------- */
+.balloon {
+  width: 60px;
+  height: 80px;
+  background: radial-gradient(circle at 30% 30%, #ff6b6b, #d93636);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 10px;
+  font-weight: bold;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  transition: transform 0.3s, opacity 0.3s;
+  box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.3);
+  position: relative;
+  transform-origin: bottom center;
+  z-index: 10;
+}
+
+/* ---------- Balloon Number ---------- */
+.balloon-number {
+  pointer-events: none;
+}
+
+/* ---------- Needle ---------- */
+.balloon .needle {
+  position: absolute;
+  width: 2px;
+  height: 40px;
+  background: silver;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-20deg);
+  border-radius: 1px;
+  display: none;
+  box-shadow: 0 0 2px #ccc;
+}
+.balloon:hover .needle {
+  display: block;
+}
+
+/* ---------- Rope ---------- */
+.balloon::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 20px;
+  background: linear-gradient(#8b6a58,#6f4b3a);
+  border-radius: 2px;
+}
+
+/* ---------- Balloon Burst Animation ---------- */
+.balloon.burst {
+  animation: balloonPop 0.4s forwards;
+  pointer-events: none;
+}
+
+/* ---------- Balloon Pop Keyframes ---------- */
+@keyframes balloonPop {
+  0% { transform: scale(1) rotate(0deg); opacity: 1; }
+  50% { transform: scale(1.3) rotate(10deg); opacity: 1; }
+  100% { transform: scale(0) rotate(25deg); opacity: 0; }
+}
+
+/* ---------- Dust Particles ---------- */
+.dust-particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 70%);
+  border-radius: 50%;
+  bottom: 0;
+  transform: translate(-50%, 0);
+  animation: dustFall 0.8s forwards;
+}
+
+@keyframes dustFall {
+  0% { transform: translate(-50%, 0) scale(0.5); opacity: 1; }
+  100% { transform: translate(calc(-50% + var(--dx)), 20px) scale(1.5); opacity: 0; }
+}
+
+/* ---------- Balloon Hint Glow ---------- */
+.balloon.hint {
+  box-shadow: 0 0 20px 4px gold;
+  animation: pulseHint 1.2s infinite alternate;
+}
+@keyframes pulseHint {
+  0% { transform: scale(1) }
+  50% { transform: scale(1.05) }
+  100% { transform: scale(1) }
+}
+
+/* ---------- Ground ---------- */
+.ground {
+  width: 100%;
+  max-width: 600px;
+  height: 20px;
+  background: linear-gradient(to top, #5a4d3c, #8b6a58);
+  border-radius: 4px 4px 0 0;
+  position: relative;
+  z-index: 1;
+  margin-top: -10px;
+}
+
+/* ---------- Progress Bar ---------- */
+.progress-bar {
+  width: 360px;
+  height: 40px;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  margin: 12px 0 18px 0;
+  background-color: #f3f6fb;
+}
+.progress-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0%;
+  transition: width 450ms cubic-bezier(.2,.9,.2,1);
+  background: linear-gradient(90deg, #ffd966 0%, #ffb347 40%, #ff6b6b 100%);
+}
+.progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: 700;
+  color: #222;
+  pointer-events: none;
+  font-size: 14px;
+}
+
+/* ---------- Score Cards ---------- */
+.history-log {
+  max-width: 440px;
+  margin-top: 12px;
+}
+.score-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+.score-rules {
+  font-size: 12px;
+  color: #666;
+  font-style: italic;
+}
+.score-formula {
+  font-weight: 700;
+  font-size: 14px;
+  color: #222;
+}
+.score-cumulative {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ff6b6b;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 520px) {
+  .balloon { width: 50px; height: 70px; font-size: 16px; }
+  .progress-bar { width: 92%; }
+}
